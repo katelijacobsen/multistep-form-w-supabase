@@ -1,10 +1,6 @@
 // Her samler vi vores componenter sammen på en side.
 // bliver kørt på klientens side, derfor use client.
 "use client";
-//vi bruger en react hook useState for at spore tilstanden i en
-// funktionskomponent. Den referere til data/egenskaber, der skal
-//spores i en applikation.
-import { useState } from "react";
 // Importere hooks fra nextjs
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
