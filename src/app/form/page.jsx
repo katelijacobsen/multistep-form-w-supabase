@@ -12,7 +12,6 @@ import Step2 from "@/app/components/StepTwo";
 import Step3 from "@/app/components/StepThree";
 
 // Når vi bruger useActionState-hook
-
 const defaultState = {
   step: 0,
   elfCount: undefined,
@@ -20,13 +19,16 @@ const defaultState = {
 };
 
 const handleStep = (prev, formData) => {
+  // Hvis der ikke er noget data så gå tilbage til defaultState.
   if (!formData) {
     return defaultState;
   }
+  //Vis at man kan vælge nisser.
   if (prev.step === 0) {
-    //object destructuring
+    //spread & object destructuring
     return { ...prev, step: prev.step + 1, elfCount: formData.get("elfCount") };
   }
+  //vis de samme antal inputs af de antal nisser man har valgt.
   if (prev.step === 1) {
     const elfs = Array.from({ length: prev.elfCount }, (_, i) => ({
       name: formData.get(`name_${i}`),
@@ -42,6 +44,7 @@ const handleStep = (prev, formData) => {
 export default function Form() {
   //tilføje vores array, som fyldes op med nisser.
   const [state, formAction] = useActionState(handleStep, defaultState);
+  //Kontrollere om formen mens den bliver sendt.
   const status = useFormStatus();
 
   const resetForm = () => {
@@ -52,6 +55,7 @@ export default function Form() {
     <>
       <h1>Julenisse Gaveuddeling</h1>
       {/* Step 1 er det første der bliver renderet. klikker man vider kommer den næste komponent op. */}
+      {/* tilføjer prop (objekt. sender data fra parent til children) i komponenterne */}
       {state.step === 0 && <Step1 formAction={formAction} />}
       {state.step === 1 && (
         <Step2
@@ -60,7 +64,7 @@ export default function Form() {
           resetForm={resetForm}
         />
       )}
-      {state.step === 2 && <Step3 data={state} formStatus={status} />}
+      {state.step === 2 && <Step3 data={state} formStatus={status}/>}
     </>
   );
 }

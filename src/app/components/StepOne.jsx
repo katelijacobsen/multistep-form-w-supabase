@@ -1,11 +1,7 @@
-export default function StepOne({formAction}) {
+export default function StepOne({ formAction }) {
   //undgår at refresh
   const handleSubmit = (formData) => {
-    // console.log(e, state);
-    
-    // e.preventDefault();
-    // const count = parseInt(e.target.value, 10);
-    formAction(formData);
+    formAction(formData); //den hjælper allerede med at refreshe som default.
   };
 
   return (
@@ -21,7 +17,10 @@ export default function StepOne({formAction}) {
           required
         />
       </label>
-      <button type="submit" formAction={handleSubmit}>Næste</button>
+      {/* Tilføjer en callback i button. Sender argumentet vider  */}
+      <button type="submit" formAction={handleSubmit}>
+        Næste
+      </button>
     </form>
   );
 }
