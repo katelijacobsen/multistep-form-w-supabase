@@ -24,6 +24,9 @@ const defaultState = {
 };
 
 const handleStep = (prev, formData) => {
+  if (!formData || formData.entries().next().done) {
+    return defaultState;
+  }
   if (prev.step === 0) {
     //object destructuring
     return { ...prev, step: prev.step + 1, elfCount: formData.get("elfCount") };
@@ -35,7 +38,7 @@ const handleStep = (prev, formData) => {
     }));
 
     //object destructuring, vider til det næste step med elfs. Objekter går til det næste step.
-    //Hvordan skal det næste Object være? Den bliver ændret i hver komponent. 
+    //Hvordan skal det næste Object være? Den bliver ændret i hver komponent.
     return { ...prev, step: prev.step + 1, elfs };
   }
 };
@@ -45,13 +48,21 @@ export default function Form() {
   const [state, formAction] = useActionState(handleStep, defaultState);
   const status = useFormStatus();
 
+  const resetForm = () => {
+    formAction(new FormData()); // Tvinger state tilbage til defaultState ved at kalde formAction uden data
+  };
+
   return (
     <>
       <h1>Julenisse Gaveuddeling</h1>
       {/* Step 1 er det første der bliver renderet. klikker man vider kommer den næste komponent op. */}
       {state.step === 0 && <Step1 formAction={formAction} />}
       {state.step === 1 && (
-        <Step2 formAction={formAction} elfCount={state.elfCount} />
+        <Step2
+          formAction={formAction}
+          elfCount={state.elfCount}
+          resetForm={resetForm}
+        />
       )}
       {state.step === 2 && <Step3 data={state} formStatus={status} />}
     </>
