@@ -24,7 +24,7 @@ const defaultState = {
 };
 
 const handleStep = (prev, formData) => {
-  if (!formData || formData.entries().next().done) {
+  if (!formData) {
     return defaultState;
   }
   if (prev.step === 0) {
