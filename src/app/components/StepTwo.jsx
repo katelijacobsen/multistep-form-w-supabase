@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function StepTwo({ formAction, elfCount, resetForm }) {
-  const [timeLeft, setTimeLeft] = useState(3); 
+  const [timeLeft, setTimeLeft] = useState(6); 
   const router = useRouter();
 
   useEffect(() => {
