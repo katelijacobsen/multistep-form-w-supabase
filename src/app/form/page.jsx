@@ -64,7 +64,7 @@ export default function Form() {
           resetForm={resetForm}
         />
       )}
-      {state.step === 2 && <Step3 data={state} formStatus={status}/>}
+      {state.step === 2 && <Step3 data={state} formStatus={status} />}
     </>
   );
 }
